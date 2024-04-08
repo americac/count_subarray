@@ -1,35 +1,38 @@
-def count_subarrays(number_array, k)
-  @results = 0
-  @k = k
-  @number_array = number_array
+class CountSubarrays
+  attr_accessor :count
 
-  while number_array.length.positive?
-    find_subarrays(number_array)
-    number_array.shift
+  def initialize(number_array, number_of_instances)
+    @max_number = number_array.max
+    @number_of_instances = number_of_instances
+    @count = 0
+    count_subarrays(number_array)
   end
 
-  @results
-end
+  private
 
-def find_subarrays(array_of_ints)
-  max_was_found = 0
+  def count_subarrays(number_array)
+    while number_array.length.positive?
+      find_subarrays(number_array)
+      number_array.shift
+    end
+  end
 
-  array_of_ints.each do |number|
-    next unless number == max_number
+  def find_subarrays(array_of_ints)
+    max_was_found = 0
 
-    max_was_found += 1
-    @results += 1 if max_was_found >= @k
+    array_of_ints.each do |number|
+      next unless number == @max_number
+
+      max_was_found += 1
+      @count += 1 if max_was_found >= @number_of_instances
+    end
   end
 end
 
-def max_number
-  @max_number ||= @number_array.max
-end
-
-result = count_subarrays([1, 3, 2, 3, 3], 2)
+result = CountSubarrays.new([1, 3, 2, 3, 3], 2).count
 message = result == 6 ? 'Passed' : 'Failed'
 puts message
 
-result = count_subarrays([1, 4, 2, 1], 3)
+result = CountSubarrays.new([1, 4, 2, 1], 3).count
 message = result.zero? ? 'Passed' : 'Failed'
 puts message
