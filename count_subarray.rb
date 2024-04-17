@@ -5,15 +5,21 @@ class CountSubarrays
     @max_number = number_array.max
     @number_of_instances = number_of_instances
     @count = 0
-    count_subarrays(number_array)
+    @number_array = number_array
+    count_subarrays
   end
 
   private
 
-  def count_subarrays(number_array)
-    while number_array.length.positive?
-      find_subarrays(number_array)
-      number_array.shift
+  def count_subarrays
+    do_the_count(@number_array.clone)
+    do_the_count(@number_array.clone.reverse)
+  end
+
+  def do_the_count(array_of_numbers)
+    while array_of_numbers.length.positive?
+      find_subarrays(array_of_numbers)
+      array_of_numbers.shift
     end
   end
 
@@ -31,8 +37,17 @@ end
 
 result = CountSubarrays.new([1, 3, 2, 3, 3], 2).count
 message = result == 6 ? 'Passed' : 'Failed'
+puts result
 puts message
 
 result = CountSubarrays.new([1, 4, 2, 1], 3).count
 message = result.zero? ? 'Passed' : 'Failed'
+puts result
+puts message
+
+result = CountSubarrays.new(
+  [61, 23, 38, 23, 56, 40, 82, 56, 82, 82, 82, 70, 8, 69, 8, 7, 19, 14, 58, 42, 82, 10, 82, 78, 15, 82], 2
+).count
+message = result == 224 ? 'Passed' : 'Failed'
+puts result
 puts message
