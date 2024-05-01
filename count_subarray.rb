@@ -1,53 +1,50 @@
-class CountSubarrays
-  attr_accessor :count
+def count_subarrays(number_array, k)
+  found_sub_set = 0
+  max_number = number_array.max
+  new_array = number_array
+  left_index = 0
 
-  def initialize(number_array, number_of_instances)
-    @max_number = number_array.max
-    @number_of_instances = number_of_instances
-    @count = 0
-    @number_array = number_array
-    count_subarrays
-  end
-
-  private
-
-  def count_subarrays
-    do_the_count(@number_array.clone)
-    do_the_count(@number_array.clone.reverse)
-  end
-
-  def do_the_count(array_of_numbers)
-    while array_of_numbers.length.positive?
-      find_subarrays(array_of_numbers)
-      array_of_numbers.shift
-    end
-  end
-
-  def find_subarrays(array_of_ints)
+  while new_array.size >= k
     max_was_found = 0
-
-    array_of_ints.each do |number|
-      next unless number == @max_number
+    new_array.each do |number|
+      next unless number == max_number
 
       max_was_found += 1
-      @count += 1 if max_was_found >= @number_of_instances
     end
+
+    found_sub_set += 1 if max_was_found >= k
+
+    new_array = number_array.slice(left_index += 1, number_array.size)
+
+    next unless new_array.size == 1
+
+    number_array.pop
+    left_index = 0
+    new_array = number_array.slice(left_index, number_array.size)
   end
+
+  found_sub_set
 end
 
-result = CountSubarrays.new([1, 3, 2, 3, 3], 2).count
+result = count_subarrays([1, 3, 2, 3, 3], 2)
 message = result == 6 ? 'Passed' : 'Failed'
-puts result
 puts message
 
-result = CountSubarrays.new([1, 4, 2, 1], 3).count
+result = count_subarrays([1, 4, 2, 1], 3)
 message = result.zero? ? 'Passed' : 'Failed'
-puts result
 puts message
 
-result = CountSubarrays.new(
+result = count_subarrays(
   [61, 23, 38, 23, 56, 40, 82, 56, 82, 82, 82, 70, 8, 69, 8, 7, 19, 14, 58, 42, 82, 10, 82, 78, 15, 82], 2
-).count
+)
 message = result == 224 ? 'Passed' : 'Failed'
-puts result
+puts message
+
+result = count_subarrays([4, 4, 4, 1, 2], 2)
+message = result == 7 ? 'Passed' : 'Failed'
+puts message
+
+result = count_subarrays([37, 20, 38, 66, 34, 38, 9, 41, 1, 14, 25, 63, 8, 12, 66, 66, 60, 12, 35, 27, 16, 38, 12, 66,
+                          38, 36, 59, 54, 66, 54, 66, 48, 59, 66, 34, 11, 50, 66, 42, 51, 53, 66, 31, 24, 66, 44, 66, 1, 66, 66, 29, 54], 5)
+message = result == 594 ? 'Passed' : 'Failed'
 puts message
