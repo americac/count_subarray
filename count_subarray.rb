@@ -16,7 +16,7 @@ def count_subarrays(number_array, k)
 
     new_array = number_array.slice(left_index += 1, number_array.size)
 
-    next unless new_array.size == 1
+    next unless new_array.size < k
 
     number_array.pop
     left_index = 0
