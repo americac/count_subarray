@@ -15,15 +15,13 @@ def count_subarrays(number_array, k)
     found_sub_set += 1 if max_was_found >= k
 
     new_array = number_array.slice(left_index += 1, number_array.size)
-
-    next unless new_array.size < k
-
-    number_array.pop
-    left_index = 0
-    new_array = number_array.slice(left_index, number_array.size)
   end
 
-  found_sub_set
+  return found_sub_set if number_array.empty?
+
+  number_array.pop
+
+  found_sub_set + count_subarrays(number_array, k)
 end
 
 result = count_subarrays([1, 3, 2, 3, 3], 2)
