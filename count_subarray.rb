@@ -46,3 +46,8 @@ result = count_subarrays([37, 20, 38, 66, 34, 38, 9, 41, 1, 14, 25, 63, 8, 12, 6
                           38, 36, 59, 54, 66, 54, 66, 48, 59, 66, 34, 11, 50, 66, 42, 51, 53, 66, 31, 24, 66, 44, 66, 1, 66, 66, 29, 54], 5)
 message = result == 594 ? 'Passed' : 'Failed'
 puts message
+
+result = count_subarrays([28, 5, 58, 91, 24, 91, 53, 9, 48, 85, 16, 70, 91, 91, 47, 91, 61, 4, 54, 61, 49], 1)
+message = result == 187 ? 'Passed' : 'Failed'
+puts result
+puts message
